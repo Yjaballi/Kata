@@ -1,4 +1,5 @@
 package com.kata.repository.test;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -6,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.kata.model.BankAccount;
 import com.kata.model.BankClient;
@@ -17,7 +19,7 @@ public class BankAccountRepositoryTest {
 
     @Autowired
     private BankAccountRepository bankAccountRepository;
-    
+
     @Autowired
     private BankClientRepository bankClientRepository;
 
@@ -36,7 +38,6 @@ public class BankAccountRepositoryTest {
         Assertions.assertTrue(retrievedAccount.isPresent());
         Assertions.assertEquals(1000.0, retrievedAccount.get().getBalance());
     }
-
 
     @Test
     public void testFindByClient() {
@@ -67,4 +68,3 @@ public class BankAccountRepositoryTest {
     }
 
 }
-
