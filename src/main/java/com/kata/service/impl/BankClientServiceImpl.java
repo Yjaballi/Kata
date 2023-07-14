@@ -1,6 +1,7 @@
 package com.kata.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,11 +12,11 @@ import com.kata.service.BankClientService;
 
 @Service
 public class BankClientServiceImpl implements BankClientService {
-	
+
 	@Autowired
     private BankClientRepository bankClientRepository;
 
-	@Autowired
+    @Autowired
     public BankClientServiceImpl(BankClientRepository bankClientRepository) {
         this.bankClientRepository = bankClientRepository;
     }
@@ -27,7 +28,8 @@ public class BankClientServiceImpl implements BankClientService {
 
     @Override
     public BankClient getBankClientById(String id) {
-        return bankClientRepository.findById(Long.parseLong(id)).get();
+        Optional<BankClient> optionalClient = bankClientRepository.findById(Long.parseLong(id));
+        return optionalClient.orElseThrow(() -> new IllegalArgumentException("Invalid bank client ID."));
     }
 
     @Override
@@ -40,4 +42,3 @@ public class BankClientServiceImpl implements BankClientService {
         return bankClientRepository.findByEmailContaining(email);
     }
 }
-

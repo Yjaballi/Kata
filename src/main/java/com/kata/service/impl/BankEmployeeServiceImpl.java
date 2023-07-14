@@ -1,6 +1,7 @@
 package com.kata.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import com.kata.service.BankEmployeeService;
 @Service
 public class BankEmployeeServiceImpl implements BankEmployeeService {
 
+	@Autowired
     private final BankEmployeeRepository bankEmployeeRepository;
 
     @Autowired
@@ -26,7 +28,8 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
 
     @Override
     public BankEmployee getBankEmployeeById(String id) {
-        return bankEmployeeRepository.findById(Long.parseLong(id)).orElse(null);
+        Optional<BankEmployee> optionalEmployee = bankEmployeeRepository.findById(Long.parseLong(id));
+        return optionalEmployee.orElseThrow(() -> new IllegalArgumentException("Invalid bank employee ID."));
     }
 
     @Override
