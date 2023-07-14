@@ -10,9 +10,7 @@ import com.kata.model.BankClient;
 
 @Repository
 public interface BankAccountRepository extends CrudRepository<BankAccount, Long> {
-    //void save(BankAccount account);
     Optional<BankAccount> findById(Long id);
     List<BankAccount> findByClient(BankClient client);
     List<BankAccount> findByBalanceGreaterThan(double amount);
-    // Other specific methods if needed
 }

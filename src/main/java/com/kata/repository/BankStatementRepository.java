@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.kata.model.BankAccount;
 import com.kata.model.BankStatement;
 
+@Repository
 public interface BankStatementRepository extends CrudRepository<BankStatement, Long> {
-    //void save(BankStatement statement);
 	Optional<BankStatement> findById(Long id);
-    // Autres méthodes spécifiques si nécessaire
 }
 

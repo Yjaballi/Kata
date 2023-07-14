@@ -46,8 +46,6 @@ public class BankEmployeeController {
         } else if (lastName != null) {
             return bankEmployeeService.getBankEmployeesByLastName(lastName);
         } else {
-            // Handle the case when no first name or last name is provided
-            // You can return an empty list or throw an appropriate exception
             return Collections.emptyList();
         }
     }

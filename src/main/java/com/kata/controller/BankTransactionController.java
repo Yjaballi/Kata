@@ -28,8 +28,6 @@ public class BankTransactionController {
     @PostMapping
     public void saveBankTransaction(@RequestBody BankTransaction transaction) {
         if (transaction.getSenderAccountId() == null || transaction.getReceiverAccountId() == null) {
-            // Handle missing sender or receiver account ID
-            // You can throw an exception, return an error response, or take appropriate action based on your application's requirements
             return;
         }
         
@@ -37,8 +35,6 @@ public class BankTransactionController {
         BankAccount receiverAccount = bankAccountService.getBankAccountById(transaction.getReceiverAccountId());
         
         if (senderAccount == null || receiverAccount == null) {
-            // Handle invalid sender or receiver account
-            // You can throw an exception, return an error response, or take appropriate action based on your application's requirements
             return;
         }
         
