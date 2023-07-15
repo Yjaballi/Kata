@@ -8,26 +8,29 @@ import org.springframework.stereotype.Service;
 import com.kata.model.BankStatement;
 import com.kata.repository.BankStatementRepository;
 import com.kata.service.BankStatementService;
+import com.kata.exception.InvalidIdException;
+import com.kata.exception.NullObjectException;
 
 @Service
 public class BankStatementServiceImpl implements BankStatementService {
 	
 	@Autowired
-    private final BankStatementRepository bankStatementRepository;
+    private BankStatementRepository bankStatementRepository;
 
-    @Autowired
-    public BankStatementServiceImpl(BankStatementRepository bankStatementRepository) {
-        this.bankStatementRepository = bankStatementRepository;
-    }
+    
 
     @Override
     public void saveBankStatement(BankStatement statement) {
+    	if (statement == null) {
+            throw new NullObjectException();
+        }
         bankStatementRepository.save(statement);
     }
 
     @Override
     public BankStatement getBankStatementById(Long id) {
         Optional<BankStatement> optionalStatement = bankStatementRepository.findById(id);
-        return optionalStatement.orElseThrow(() -> new IllegalArgumentException("Invalid bank statement ID."));
+        return optionalStatement.orElseThrow(() -> new InvalidIdException("Invalid bank statement ID: " + id));
     }
+
 }

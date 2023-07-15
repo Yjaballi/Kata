@@ -9,17 +9,14 @@ import org.springframework.stereotype.Service;
 import com.kata.model.BankEmployee;
 import com.kata.repository.BankEmployeeRepository;
 import com.kata.service.BankEmployeeService;
+import com.kata.exception.InvalidIdException;
 
 @Service
 public class BankEmployeeServiceImpl implements BankEmployeeService {
-
+	
 	@Autowired
-    private final BankEmployeeRepository bankEmployeeRepository;
+    private BankEmployeeRepository bankEmployeeRepository;
 
-    @Autowired
-    public BankEmployeeServiceImpl(BankEmployeeRepository bankEmployeeRepository) {
-        this.bankEmployeeRepository = bankEmployeeRepository;
-    }
 
     @Override
     public void saveBankEmployee(BankEmployee employee) {
@@ -29,8 +26,9 @@ public class BankEmployeeServiceImpl implements BankEmployeeService {
     @Override
     public BankEmployee getBankEmployeeById(String id) {
         Optional<BankEmployee> optionalEmployee = bankEmployeeRepository.findById(Long.parseLong(id));
-        return optionalEmployee.orElseThrow(() -> new IllegalArgumentException("Invalid bank employee ID."));
+        return optionalEmployee.orElseThrow(() -> new InvalidIdException("Invalid bank employee ID: " + id));
     }
+
 
     @Override
     public List<BankEmployee> getBankEmployeesByPosition(String position) {

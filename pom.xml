@@ -10,11 +10,11 @@
         <relativePath/>
     </parent>
     
-    <groupId>com.javatpoint</groupId>
-    <artifactId>spring-boot-h2-database-example</artifactId>
+    <groupId>com.kata</groupId>
+    <artifactId>kata-project</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-boot-h2-database-example</name>
-    <description>Demo project for Spring Boot</description>
+    <name>kata</name>
+    <description>Kata Banking Application</description>
     
     <properties>
         <java.version>1.8</java.version>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kata.exception.InvalidIdException;
 import com.kata.model.BankAccount;
 import com.kata.model.BankClient;
 import com.kata.repository.BankAccountRepository;
@@ -16,11 +17,6 @@ public class BankAccountServiceImpl implements BankAccountService {
 	@Autowired
 	private BankAccountRepository bankAccountRepository;
 
-     
-	@Autowired
-    public BankAccountServiceImpl(BankAccountRepository bankAccountRepository) {
-        this.bankAccountRepository = bankAccountRepository;
-    }
 
     @Override
     public void saveBankAccount(BankAccount account) {
@@ -29,7 +25,8 @@ public class BankAccountServiceImpl implements BankAccountService {
 
     @Override
     public BankAccount getBankAccountById(String id) {
-        return bankAccountRepository.findById(Long.parseLong(id)).get();
+        return bankAccountRepository.findById(Long.parseLong(id))
+                .orElseThrow(InvalidIdException::new);
     }
 
     @Override
@@ -46,20 +43,19 @@ public class BankAccountServiceImpl implements BankAccountService {
     @Override
     public void deposit(String accountId, double amount) {
         BankAccount account = bankAccountRepository.findById(Long.parseLong(accountId))
-                .orElseThrow(() -> new IllegalArgumentException("Invalid account ID"));
+                .orElseThrow(() -> new InvalidIdException("Invalid account ID: " + accountId));
 
         account.deposit(amount);
         bankAccountRepository.save(account);
     }
 
+
     @Override
     public void withdraw(String accountId, double amount) {
-        BankAccount account = bankAccountRepository.findById(Long.parseLong(accountId))
-                .orElseThrow(() -> new IllegalArgumentException("Invalid account ID"));
+    	BankAccount account = bankAccountRepository.findById(Long.parseLong(accountId))
+                .orElseThrow(() -> new InvalidIdException("Invalid account ID: " + accountId));
 
         account.withdraw(amount);
         bankAccountRepository.save(account);
     }
-
-    
 }
