@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kata.exception.InvalidIdException;
+import com.kata.exception.NullObjectException;
 import com.kata.model.BankClient;
 import com.kata.repository.BankClientRepository;
 import com.kata.service.BankClientService;
@@ -20,6 +21,9 @@ public class BankClientServiceImpl implements BankClientService {
 
     @Override
     public void saveBankClient(BankClient client) {
+    	if (client == null) {
+            throw new NullObjectException("MISSING BANK CLIENT");
+        }
         bankClientRepository.save(client);
     }
 
@@ -32,11 +36,17 @@ public class BankClientServiceImpl implements BankClientService {
 
     @Override
     public List<BankClient> getBankClientsByLastName(String lastName) {
+    	if (lastName == null) {
+            throw new NullObjectException("MISSING LASTNAME");
+        }
         return bankClientRepository.findByLastName(lastName);
     }
 
     @Override
     public List<BankClient> getBankClientsByEmailContaining(String email) {
+    	if (email == null) {
+            throw new NullObjectException("MISSING EMAIL");
+        }
         return bankClientRepository.findByEmailContaining(email);
     }
 }

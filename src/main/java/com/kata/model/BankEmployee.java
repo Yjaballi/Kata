@@ -1,19 +1,39 @@
 package com.kata.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class BankEmployee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String firstName;
     private String lastName;
     private String position;
+
+    
+    
+    @OneToMany(mappedBy = "bankEmployee", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<BankAccount> bankAccounts;
+    
+    @OneToMany(mappedBy = "bankEmployee", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<BankOperation> bankOperations;
+
+    @OneToMany(mappedBy = "bankEmployee", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<BankTransaction> bankTransactions;
 
     public BankEmployee() {
     }
@@ -24,39 +44,61 @@ public class BankEmployee {
         this.position = position;
     }
 
-	
-
     // Getters and Setters
-    
+
     public Long getId() {
-		return id;
-	}
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public String getPosition() {
-		return position;
-	}
+    public String getPosition() {
+        return position;
+    }
 
-	public void setPosition(String position) {
-		this.position = position;
-	}
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public List<BankAccount> getBankAccounts() {
+        return bankAccounts;
+    }
+
+    public void setBankAccounts(List<BankAccount> bankAccounts) {
+        this.bankAccounts = bankAccounts;
+    }
+
+    public List<BankOperation> getBankOperations() {
+        return bankOperations;
+    }
+
+    public void setBankOperations(List<BankOperation> bankOperations) {
+        this.bankOperations = bankOperations;
+    }
+
+    public List<BankTransaction> getBankTransactions() {
+        return bankTransactions;
+    }
+
+    public void setBankTransactions(List<BankTransaction> bankTransactions) {
+        this.bankTransactions = bankTransactions;
+    }
 }

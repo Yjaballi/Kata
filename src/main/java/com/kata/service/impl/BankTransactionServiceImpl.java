@@ -23,18 +23,26 @@ public class BankTransactionServiceImpl implements BankTransactionService {
 
     @Override
     public void saveBankTransaction(BankTransaction transaction) {
+    	if(transaction == null) {
+            throw new NullObjectException("MISSING BANK TRANSACTION");
+    	}
         bankTransactionRepository.save(transaction);
     }
 
     @Override
     public List<BankTransaction> getBankTransactionsBySenderAccountIdOrReceiverAccountId(String senderAccountId,
             String receiverAccountId) {
-        /*Objects.requireNonNull(senderAccountId, "Sender account ID must not be null.");
-        Objects.requireNonNull(receiverAccountId, "Receiver account ID must not be null.");*/
     	
-    	if (senderAccountId == null || receiverAccountId == null) {
-            throw new NullObjectException();
+    	if (senderAccountId == null && receiverAccountId == null) {
+    		
+            throw new NullObjectException("MISSONG SENDER ACCOUNT ID AND RECEIVER ACCOUNT ID");
         }
+    	else if(senderAccountId == null){
+    		throw new NullObjectException("MISSONG SENDER ACCOUNT ID");
+    	}
+    	else if(receiverAccountId == null) {
+    		throw new NullObjectException("MISSONG RECEIVER ACCOUNT ID");
+    	}
         return bankTransactionRepository.findBySenderAccountIdOrReceiverAccountId(senderAccountId, receiverAccountId);
     }
 

@@ -21,29 +21,32 @@ public class BankOperationServiceImpl implements BankOperationService {
 
     @Override
     public void saveBankOperation(BankOperation operation) {
+    	if (operation == null) {
+            throw new NullObjectException("MISSING BANK OPERATION");
+        }
         bankOperationRepository.save(operation);
     }
 
     @Override
     public List<BankOperation> getBankOperationsByBankAccount(BankAccount bankAccount) {
         if (bankAccount == null) {
-            throw new NullObjectException();
+            throw new NullObjectException("MISSING BANK ACCOUNT");
         }
         return bankOperationRepository.findByBankAccount(bankAccount);
     }
 
     @Override
     public List<BankOperation> getBankOperationsByBankAccountAndDateRange(BankAccount bankAccount, Date startDate, Date endDate) {
-        if (bankAccount == null) {
-            throw new NullObjectException();
+    	if (bankAccount == null) {
+            throw new NullObjectException("MISSING BANK ACCOUNT");
         }
         return bankOperationRepository.findByBankAccountAndDateBetween(bankAccount, startDate, endDate);
     }
 
     @Override
     public List<BankOperation> getBankOperationsByBankAccountOrderByDateDesc(BankAccount bankAccount) {
-        if (bankAccount == null) {
-            throw new NullObjectException();
+    	if (bankAccount == null) {
+            throw new NullObjectException("MISSING BANK ACCOUNT");
         }
         return bankOperationRepository.findByBankAccountOrderByDateDesc(bankAccount);
     }

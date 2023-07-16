@@ -9,4 +9,8 @@ public class NullObjectException extends RuntimeException {
     public NullObjectException() {
         super("Null Object");
     }
+    
+    public NullObjectException(String message) {
+        super(message);
+    }
 }

@@ -4,8 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
 import java.util.Date;
 import java.util.List;
 
@@ -15,45 +15,29 @@ public class BankStatement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    
     private Date date;
-
-    
-   
     
     @OneToMany
-    private List<BankOperation> operations;
+    private List<BankTransaction> transactions;
 
     public BankStatement() {
     }
 
-    public BankStatement(List<BankOperation> operations, Date date) {
-        this.operations = operations;
+    public BankStatement(Date date) {
         this.date = date;
     }
 
-	
     // Getters and Setters
     
     public Long getId() {
-		return id;
-	}
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	
-
-	public List<BankOperation> getOperations() {
-		return operations;
-	}
-
-	public void setOperations(List<BankOperation> operations) {
-		this.operations = operations;
-	}
-	
-	public Date getDate() {
+    public Date getDate() {
         return date;
     }
 
@@ -61,4 +45,12 @@ public class BankStatement {
         this.date = date;
     }
 
+    public List<BankTransaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<BankTransaction> transactions) {
+        this.transactions = transactions;
+    }
 }
+

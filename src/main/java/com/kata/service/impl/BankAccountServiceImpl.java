@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kata.exception.InvalidIdException;
+import com.kata.exception.NullObjectException;
 import com.kata.model.BankAccount;
 import com.kata.model.BankClient;
 import com.kata.repository.BankAccountRepository;
@@ -20,22 +21,29 @@ public class BankAccountServiceImpl implements BankAccountService {
 
     @Override
     public void saveBankAccount(BankAccount account) {
+    	if (account == null) {
+            throw new NullObjectException("MISSING BANK ACCOUNT");
+        }
         bankAccountRepository.save(account);
     }
 
     @Override
     public BankAccount getBankAccountById(String id) {
         return bankAccountRepository.findById(Long.parseLong(id))
-                .orElseThrow(InvalidIdException::new);
+        		.orElseThrow(() -> new InvalidIdException("Invalid account ID: " + id));
     }
 
     @Override
     public List<BankAccount> getBankAccountsByClient(BankClient client) {
+    	if (client == null) {
+            throw new NullObjectException("MISSING BANK CLIENT");
+        }
         return bankAccountRepository.findByClient(client);
     }
 
     @Override
     public List<BankAccount> getBankAccountsByBalanceGreaterThan(double amount) {
+   
         return bankAccountRepository.findByBalanceGreaterThan(amount);
     }
     

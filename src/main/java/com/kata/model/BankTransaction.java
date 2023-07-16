@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Entity
@@ -11,11 +12,17 @@ public class BankTransaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private Date date;
     private double amount;
     private String senderAccountId;
     private String receiverAccountId;
+
+    @ManyToOne
+    private BankStatement bankStatement;
+
+    @ManyToOne
+    private BankEmployee bankEmployee;
 
     public BankTransaction() {
     }
@@ -27,48 +34,61 @@ public class BankTransaction {
         this.receiverAccountId = receiverAccountId;
     }
 
-	
-
     // Getters and Setters
-    
+
     public Long getId() {
-		return id;
-	}
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Date getDate() {
-		return date;
-	}
+    public Date getDate() {
+        return date;
+    }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
-	public double getAmount() {
-		return amount;
-	}
+    public double getAmount() {
+        return amount;
+    }
 
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
 
-	public String getSenderAccountId() {
-		return senderAccountId;
-	}
+    public String getSenderAccountId() {
+        return senderAccountId;
+    }
 
-	public void setSenderAccountId(String senderAccountId) {
-		this.senderAccountId = senderAccountId;
-	}
+    public void setSenderAccountId(String senderAccountId) {
+        this.senderAccountId = senderAccountId;
+    }
 
-	public String getReceiverAccountId() {
-		return receiverAccountId;
-	}
+    public String getReceiverAccountId() {
+        return receiverAccountId;
+    }
 
-	public void setReceiverAccountId(String receiverAccountId) {
-		this.receiverAccountId = receiverAccountId;
-	}
-    
+    public void setReceiverAccountId(String receiverAccountId) {
+        this.receiverAccountId = receiverAccountId;
+    }
+
+    public BankStatement getBankStatement() {
+        return bankStatement;
+    }
+
+    public void setBankStatement(BankStatement bankStatement) {
+        this.bankStatement = bankStatement;
+    }
+
+    public BankEmployee getBankEmployee() {
+        return bankEmployee;
+    }
+
+    public void setBankEmployee(BankEmployee bankEmployee) {
+        this.bankEmployee = bankEmployee;
+    }
 }

@@ -9,17 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class BankAccount {
+public class BankAccount{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private double balance;
-    
     
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -28,6 +26,9 @@ public class BankAccount {
     @OneToMany(mappedBy = "bankAccount")
     @JsonIgnore
     private List<BankOperation> operations;
+    
+    @ManyToOne
+    private BankEmployee bankEmployee;
 
     public BankAccount() {
         this.balance = 0.0;
@@ -58,43 +59,45 @@ public class BankAccount {
         }
     }
 
-
-   
-    
-
     // Getters and Setters
-    
+
     public List<BankOperation> getOperations() {
         return operations;
     }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public double getBalance() {
-		return balance;
-	}
+    public double getBalance() {
+        return balance;
+    }
 
-	public void setBalance(double balance) {
-		this.balance = balance;
-	}
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
 
-	public void setOperations(List<BankOperation> operations) {
-		this.operations = operations;
-	}
-    
-	public BankClient getClient() {
+    public void setOperations(List<BankOperation> operations) {
+        this.operations = operations;
+    }
+
+    public BankClient getClient() {
         return client;
     }
 
     public void setClient(BankClient client) {
         this.client = client;
     }
-    
-    
+
+    public BankEmployee getBankEmployee() {
+        return bankEmployee;
+    }
+
+    public void setBankEmployee(BankEmployee bankEmployee) {
+        this.bankEmployee = bankEmployee;
+    }
 }

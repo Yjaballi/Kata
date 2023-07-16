@@ -21,9 +21,9 @@ public class BankStatementServiceImpl implements BankStatementService {
 
     @Override
     public void saveBankStatement(BankStatement statement) {
-    	if (statement == null) {
-            throw new NullObjectException();
-        }
+    	if(statement == null) {
+            throw new NullObjectException("MISSING STATEMENT");
+    	}
         bankStatementRepository.save(statement);
     }
 
