@@ -34,14 +34,9 @@ public class BankOperationController {
     public void saveBankOperation(@RequestBody BankOperation operation) {
     	
     	if(operation.getBankAccount() != null) {
-          BankAccount  operationBankAccount = bankAccountService.getBankAccountById(operation.getBankAccount().getId().toString());
-          if(operation.getAmount() <operationBankAccount.getBalance()) {
-          bankOperationService.saveBankOperation(operation);
-          double newBankBalance = operationBankAccount.getBalance() - operation.getAmount();
-          operationBankAccount.setBalance(newBankBalance);
-          bankAccountService.saveBankAccount(operationBankAccount);
+            bankOperationService.saveBankOperation(operation);
           }
-    	}
+    	
     }
 
     

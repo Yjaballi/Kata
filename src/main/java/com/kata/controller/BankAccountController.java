@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kata.model.BankAccount;
 import com.kata.model.BankClient;
+import com.kata.model.BankOperation;
 import com.kata.service.BankAccountService;
+import com.kata.service.BankOperationService;
 
 @RestController
 @RequestMapping("/bank-accounts")
@@ -21,6 +23,9 @@ public class BankAccountController {
 
     @Autowired
     private BankAccountService bankAccountService;
+    
+    @Autowired
+    private BankOperationService bankOperationService;
 
     @PostMapping
     public void saveBankAccount(@RequestBody BankAccount account) {
@@ -51,5 +56,11 @@ public class BankAccountController {
     @PostMapping("/{accountId}/withdraw")
     public void withdraw(@PathVariable String accountId, @RequestParam double amount) {
         bankAccountService.withdraw(accountId, amount);
+    }
+    
+    @GetMapping("/{accountId}/operations")
+    public List<BankOperation> getBankAccountOperations(@PathVariable String accountId) {
+        BankAccount account = bankAccountService.getBankAccountById(accountId);
+        return bankOperationService.getBankOperationsByBankAccount(account);
     }
 }
