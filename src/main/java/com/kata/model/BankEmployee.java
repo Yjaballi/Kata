@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +21,8 @@ public class BankEmployee {
 
     private String firstName;
     private String lastName;
-    private String position;
+    @Enumerated(EnumType.STRING)
+    private Position position;
 
     
     
@@ -38,7 +41,7 @@ public class BankEmployee {
     public BankEmployee() {
     }
 
-    public BankEmployee(String firstName, String lastName, String position) {
+    public BankEmployee(String firstName, String lastName, Position position) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.position = position;
@@ -70,11 +73,11 @@ public class BankEmployee {
         this.lastName = lastName;
     }
 
-    public String getPosition() {
+    public Position getPosition() {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 

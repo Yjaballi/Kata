@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.kata.model.BankEmployee;
+import com.kata.model.Position;
 import com.kata.service.BankEmployeeService;
 
 import java.util.Collections;
@@ -12,11 +13,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/bank-employees")
 public class BankEmployeeController {
-	
-	@Autowired
+
+    @Autowired
     private BankEmployeeService bankEmployeeService;
 
-    @Autowired 
+    @Autowired
     public BankEmployeeController(BankEmployeeService bankEmployeeService) {
         this.bankEmployeeService = bankEmployeeService;
     }
@@ -32,8 +33,8 @@ public class BankEmployeeController {
     }
 
     @GetMapping("/position/{position}")
-    public List<BankEmployee> getBankEmployeesByPosition(@PathVariable String position) {
-        return bankEmployeeService.getBankEmployeesByPosition(position);
+    public List<BankEmployee> getBankEmployeesByPosition(@PathVariable Position position) {
+        return bankEmployeeService.getBankEmployeesByPosition(position.toString());
     }
 
     @GetMapping("/name")
@@ -50,4 +51,3 @@ public class BankEmployeeController {
         }
     }
 }
-
